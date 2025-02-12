@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>t-SNE Visualization with Convex Hulls</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <style>
+        .highcharts-container {
+            overflow: visible !important;
+        }
+        .highcharts-data-label text {
+            font-size: 9px;
+            cursor: default;
+        }
+
+        /* 🔹 Estilo del botón debajo de la leyenda */
+        .cluster-button {
+            display: block;
+            margin: 10px auto;
+            padding: 8px 15px;
+            font-size: 12px;
+            background-color: white;
+            border: 2px solid black;
+            color: black;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            width: fit-content;
+            border-radius: 5px;
+        }
+
+        .cluster-button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" style="width: 95%; height: 90vh; margin: 20px auto"></div>
+
+    <!-- 🔹 Botón debajo de la leyenda -->
+    <div style="text-align: center;">
+        <a href="cluster_optimo.php" class="cluster-button">Numbers of Clusters</a>
+    </div>
+
+    <script>
+        const jsonPath = 'visualizacion.json';
+        const convexHullPath = 'convex_hulls.json';
+
+        // 🔹 Paleta de colores predefinida (hasta 5 valores)
+        const predefinedClusterColors = {
+            "1": "#FF5733", // Rojo anaranjado
+            "2": "#33FF57", // Verde
+            "3": "#3357FF", // Azul
+            "4": "#F0E68C", // Amarillo oscuro
+            "5": "#FF69B4"  // Rosa
+        };
+
+        // 🔹 Paleta de colores predefinida para convex hulls (mismos colores de los clusters)
+        const convexHullColors = {
+            "1": "#FFC1C1", // Rojo claro
+            "2": "#C1E1C1", // Verde claro
+            "3": "#C1D1FF", // Azul claro
+            "4": "#FFFACD", // Amarillo claro
+            "5": "#FFC1E1"  // Rosa claro
+        };
+
+        function generateRandomColor() {
+            return `hsl(${Math.random() * 360}, 70%, 50%)`;
+        }
+
+        $.getJSON(jsonPath, function(data) {
+            const uniqueClusters = [...new Set(data.observaciones.map(obs => String(obs.Cluster)))].sort();
+
+            // 🔹 Mapeo de colores (asigna predefinidos y aleatorios si es necesario)
+            const clusterColorMap = {};
+            const convexHullColorMap = {};
+
+            uniqueClusters.forEach((cluster) => {
+                clusterColorMap[cluster] = predefinedClusterColors[cluster] || generateRandomColor();
+                convexHullColorMap[cluster] = convexHullColors[cluster] || clusterColorMap[cluster]; 
+            });
+
+            const observaciones = data.observaciones.map(obs => ({
+                x: parseFloat(obs.Dim1),
+                y: parseFloat(obs.Dim2),
+                cluster: String(obs.Cluster),
+                name: obs.etiqueta,
+                marker: { 
+                    symbol: 'circle', 
+                    radius: 6,
+                    fillColor: clusterColorMap[String(obs.Cluster)]
+                },
+                zIndex: 10
+            }));
+
+            const topicos = data.topicos.map(topico => ({
+                x: parseFloat(topico.Dim1),
+                y: parseFloat(topico.Dim2),
+                name: topico.Variable,
+                marker: { 
+                    symbol: 'circle', 
+                    radius: 6,
+                    fillColor: '#4D4D4D',
+                    lineWidth: 0.5,
+                    lineColor: '#333333'
+                },
+                zIndex: 10
+            }));
+
+            // Aquí almacenaremos los convex hulls como series separadas
+            const convexHulls = [];
+
+            $.getJSON(convexHullPath, function(convexData) {
+                convexData.forEach((hull) => {
+                    const clusterID = String(hull.cluster);
+                    const hullColor = convexHullColorMap[clusterID];
+
+                    // 🔹 Cada convex hull se vincula al ID del cluster correspondiente
+                    convexHulls.push({
+                        // linkedTo: hace que este polígono se oculte / muestre
+                        // junto con el scatter principal que tenga el mismo ID.
+                        linkedTo: `cluster-${clusterID}`,
+                        type: 'polygon',
+                        data: hull.puntos.map(punto => [parseFloat(punto.Dim1), parseFloat(punto.Dim2)]),
+                        color: hullColor,
+                        fillOpacity: 0.2,
+                        lineWidth: 0.7,
+                        zIndex: 1,
+                        // No aparecerá como un elemento separado en la leyenda,
+                        // sino que usará el del scatter al que está vinculado.
+                        showInLegend: false 
+                    });
+                });
+
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'scatter',
+                        zoomType: 'xy',
+                        backgroundColor: '#FFFFFF'
+                    },
+                    title: {
+                        text: 'Visualization of Scientific Publications with t-SNE and Convex Hulls',
+                        style: { fontSize: '18px' }
+                    },
+                    xAxis: {
+                        title: { text: 't-SNE Dimension 1' },
+                        gridLineWidth: 0,
+                        lineWidth: 0,
+                        tickLength: 0
+                    },
+                    yAxis: {
+                        title: { text: 't-SNE Dimension 2' },
+                        gridLineWidth: 0,
+                        lineWidth: 0,
+                        tickLength: 0
+                    },
+                    legend: {
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        layout: 'vertical',
+                        itemMarginBottom: 10,
+                        title: {
+                            text: 'Legend:',
+                            style: { fontWeight: 'bold' }
+                        }
+                    },
+                    tooltip: {
+                        useHTML: true,
+                        headerFormat: '',
+                        pointFormat: '<b>{point.name}</b>',
+                        style: {
+                            padding: '10px',
+                            fontSize: '12px'
+                        }
+                    },
+                    plotOptions: {
+                        scatter: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}',
+                                style: {
+                                    fontSize: '8px',
+                                    color: '#333',
+                                    textOutline: 'none'
+                                }
+                            },
+                            jitter: { x: 0.2, y: 0.2 }
+                        }
+                    },
+                    series: [
+                        // 🔹 Creamos una serie de tipo scatter por cada cluster
+                        ...uniqueClusters.map(clusterId => ({
+                            // Asignamos un ID para poder vincular el hull (linkedTo)
+                            id: `cluster-${clusterId}`,
+                            name: `Cluster ${clusterId}`,
+                            color: clusterColorMap[clusterId],
+                            data: observaciones.filter(obs => obs.cluster === clusterId),
+                            marker: { symbol: 'circle', radius: 6 },
+                            zIndex: 10
+                        })),
+                        {
+                            name: 'Topics',
+                            color: '#4D4D4D',
+                            data: topicos,
+                            marker: {
+                                symbol: 'circle',
+                                radius: 6,
+                                lineWidth: 0.5,
+                                lineColor: '#333333'
+                            },
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}',
+                                style: {
+                                    fontWeight: 'bold',
+                                    fontSize: '10px'
+                                }
+                            },
+                            zIndex: 10
+                        },
+                        // 🔹 Agregamos los convex hulls (tipo polygon) que están vinculados
+                        //    a sus respectivos scatter series por el 'linkedTo'.
+                        ...convexHulls
+                    ]
+                });
+            });
+        });
+    </script>
+</body>
+</html>

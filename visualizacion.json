@@ -1,0 +1,250 @@
+{
+  "observaciones": [
+    {
+      "Dim1": 97.7164,
+      "Dim2": 49.883,
+      "Cluster": "1",
+      "etiqueta": "1996, Animals, Australia"
+    },
+    {
+      "Dim1": 65.8496,
+      "Dim2": -52.2505,
+      "Cluster": "2",
+      "etiqueta": "1997, Appl. Sci. Basel, Bangladesh"
+    },
+    {
+      "Dim1": 26.9943,
+      "Dim2": 74.9068,
+      "Cluster": "1",
+      "etiqueta": "1998, Aquacult. Eng., Brazil"
+    },
+    {
+      "Dim1": 70.693,
+      "Dim2": 59.8066,
+      "Cluster": "1",
+      "etiqueta": "1999, Aquaculture, Canada"
+    },
+    {
+      "Dim1": -106.5845,
+      "Dim2": 24.7293,
+      "Cluster": "3",
+      "etiqueta": "2000, Aquacult. Int., Chile"
+    },
+    {
+      "Dim1": 40.1012,
+      "Dim2": -0.4255,
+      "Cluster": "1",
+      "etiqueta": "2001, Aquacult. Res., China"
+    },
+    {
+      "Dim1": -85.7842,
+      "Dim2": 17.9745,
+      "Cluster": "3",
+      "etiqueta": "2002, Biosyst. Eng., Egypt"
+    },
+    {
+      "Dim1": 30.6204,
+      "Dim2": 23.8531,
+      "Cluster": "1",
+      "etiqueta": "2003, Comput. Electron. Agric., France"
+    },
+    {
+      "Dim1": 1.1407,
+      "Dim2": -93.6905,
+      "Cluster": "2",
+      "etiqueta": "2004, Ecol. Indic., Germany"
+    },
+    {
+      "Dim1": 79.6246,
+      "Dim2": 5.9897,
+      "Cluster": "1",
+      "etiqueta": "2005, Ecol. Inform., Greece"
+    },
+    {
+      "Dim1": -63.7777,
+      "Dim2": 21.5924,
+      "Cluster": "3",
+      "etiqueta": "2006, Eng. Appl. Artif. Intell., India"
+    },
+    {
+      "Dim1": -63.0866,
+      "Dim2": 49.7729,
+      "Cluster": "3",
+      "etiqueta": "2007, Environ. Monit. Assess., Indonesia"
+    },
+    {
+      "Dim1": -59.8582,
+      "Dim2": 4.3508,
+      "Cluster": "3",
+      "etiqueta": "2008, Expert Syst. Appl., Iran"
+    },
+    {
+      "Dim1": 62.3913,
+      "Dim2": 28.8372,
+      "Cluster": "1",
+      "etiqueta": "2009, Fishes, Italy"
+    },
+    {
+      "Dim1": 17.6298,
+      "Dim2": 36.0189,
+      "Cluster": "1",
+      "etiqueta": "2010, Front. Mar. Sci., Japan"
+    },
+    {
+      "Dim1": -35.8954,
+      "Dim2": -52.4128,
+      "Cluster": "2",
+      "etiqueta": "2011, IEEE Access, Malaysia"
+    },
+    {
+      "Dim1": -24.4434,
+      "Dim2": 12.884,
+      "Cluster": "3",
+      "etiqueta": "2012, IEEE J. Sel. Top. Appl. Earth Obs. Remote Sens., Mexico"
+    },
+    {
+      "Dim1": -24.3986,
+      "Dim2": 43.1013,
+      "Cluster": "3",
+      "etiqueta": "2013, Inf. Process. Agric., Netherlands"
+    },
+    {
+      "Dim1": 7.09,
+      "Dim2": -75.5127,
+      "Cluster": "2",
+      "etiqueta": "2014, J. Environ. Manage., New Zealand"
+    },
+    {
+      "Dim1": 37.1644,
+      "Dim2": 57.2074,
+      "Cluster": "1",
+      "etiqueta": "2015, J. Mar. Sci. Eng., Norway"
+    },
+    {
+      "Dim1": -73.5003,
+      "Dim2": -39.6237,
+      "Cluster": "3",
+      "etiqueta": "2016, Nongye Gongcheng Xuebao, Philippines"
+    },
+    {
+      "Dim1": -65.2649,
+      "Dim2": -57.3116,
+      "Cluster": "2",
+      "etiqueta": "2017, Nongye Jixie Xuebao, Portugal"
+    },
+    {
+      "Dim1": -1.3993,
+      "Dim2": 15.627,
+      "Cluster": "1",
+      "etiqueta": "2018, PLOS ONE, South Korea"
+    },
+    {
+      "Dim1": 10.1463,
+      "Dim2": -7.9471,
+      "Cluster": "2",
+      "etiqueta": "2019, Remote Sens., Spain"
+    },
+    {
+      "Dim1": 90.9627,
+      "Dim2": -16.2813,
+      "Cluster": "1",
+      "etiqueta": "2020, Rev. Aquac., Taiwan"
+    },
+    {
+      "Dim1": -8.1133,
+      "Dim2": -50.7338,
+      "Cluster": "2",
+      "etiqueta": "2021, Sci. Total Environ., Thailand"
+    },
+    {
+      "Dim1": -15.4729,
+      "Dim2": -31.1422,
+      "Cluster": "2",
+      "etiqueta": "2022, Sci. Rep., Turkey"
+    },
+    {
+      "Dim1": -31.797,
+      "Dim2": -21.2876,
+      "Cluster": "2",
+      "etiqueta": "2023, Sensors, United Kingdom"
+    },
+    {
+      "Dim1": 21.2516,
+      "Dim2": -27.9156,
+      "Cluster": "2",
+      "etiqueta": "2024, Sustainability, USA"
+    }
+  ],
+  "topicos": [
+    {
+      "Dim1": -43.5124,
+      "Dim2": -106.0761,
+      "Variable": "t_1"
+    },
+    {
+      "Dim1": 122.4613,
+      "Dim2": 7.1016,
+      "Variable": "t_2"
+    },
+    {
+      "Dim1": -9.985,
+      "Dim2": 71.6885,
+      "Variable": "t_3"
+    },
+    {
+      "Dim1": -16.2613,
+      "Dim2": -98.0557,
+      "Variable": "t_4"
+    },
+    {
+      "Dim1": -17.7552,
+      "Dim2": 24.6404,
+      "Variable": "t_5"
+    },
+    {
+      "Dim1": -125.9275,
+      "Dim2": 31.5677,
+      "Variable": "t_6"
+    },
+    {
+      "Dim1": 98.7607,
+      "Dim2": -56.0492,
+      "Variable": "t_7"
+    },
+    {
+      "Dim1": -56.2242,
+      "Dim2": 23.088,
+      "Variable": "t_8"
+    },
+    {
+      "Dim1": 21.795,
+      "Dim2": -64.8852,
+      "Variable": "t_9"
+    },
+    {
+      "Dim1": -36.8639,
+      "Dim2": 100.1377,
+      "Variable": "t_10"
+    },
+    {
+      "Dim1": -110.2815,
+      "Dim2": 5.6697,
+      "Variable": "t_11"
+    },
+    {
+      "Dim1": 11.4825,
+      "Dim2": 29.0538,
+      "Variable": "t_12"
+    },
+    {
+      "Dim1": 93.8952,
+      "Dim2": 1.97,
+      "Variable": "t_13"
+    },
+    {
+      "Dim1": 68.4163,
+      "Dim2": 30.1487,
+      "Variable": "t_14"
+    }
+  ]
+}

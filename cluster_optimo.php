@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Optimal Number of Clusters - Elbow Method</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <style>
+        /* 🔹 Estilo del botón */
+        .tsne-button {
+            display: block;
+            margin: 10px auto;
+            padding: 8px 15px;
+            font-size: 12px;
+            background-color: white;
+            border: 2px solid black;
+            color: black;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            width: fit-content;
+            border-radius: 5px;
+        }
+
+        .tsne-button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" style="width: 80%; height: 600px; margin: 20px auto"></div>
+
+    <!-- 🔹 Botón debajo del gráfico -->
+    <div style="text-align: center;">
+        <a href="Datos_biplot.php" class="tsne-button">t-SNE with convex hull</a>
+    </div>
+
+    <script>
+        $.getJSON("elbow.json", function(data) {
+            const categories = data.map(d => d.k);
+            const wss = data.map(d => d.wss);
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'line',
+                    backgroundColor: '#FFFFFF'  // 🔹 Fondo completamente blanco
+                },
+                title: {
+                    text: 'Optimal Number of Clusters - Elbow Method',
+                    align: 'center',
+                    style: {
+                        fontSize: '18px',
+                        fontWeight: 'bold'
+                    }
+                },
+                xAxis: {
+                    title: { 
+                        text: 'Number of Clusters (k)',
+                        style: { fontSize: '14px' }
+                    },
+                    categories: categories,
+                    tickInterval: 1,
+                    gridLineWidth: 0,  // 🔹 Quita las líneas de cuadrícula del eje X
+                    lineWidth: 0  // 🔹 Elimina la línea del eje X
+                },
+                yAxis: {
+                    title: { 
+                        text: 'Total Within-Cluster Sum of Squares (WSS)',
+                        style: { fontSize: '14px' }
+                    },
+                    min: Math.min(...wss) - 1000,  
+                    max: Math.max(...wss) + 1000,  
+                    gridLineWidth: 0,  // 🔹 Quita las líneas de cuadrícula del eje Y
+                    lineWidth: 0  // 🔹 Elimina la línea del eje Y
+                },
+                series: [{
+                    name: 'WSS',
+                    data: wss,
+                    color: 'blue',
+                    marker: {
+                        symbol: 'circle',
+                        radius: 5,
+                        fillColor: 'blue'
+                    },
+                    lineWidth: 2
+                }],
+                tooltip: {
+                    pointFormat: 'k: <b>{point.category}</b><br>WSS: <b>{point.y.toFixed(2)}</b>'
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.2f}',
+                            style: { fontSize: '12px', fontWeight: 'bold' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
